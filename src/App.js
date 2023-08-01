@@ -3,33 +3,65 @@ import {useState, useEffect } from "react";
 import MyForm from "./form";
 import Table from "./home";
 
-
+const dataArr = [
+  {
+    "name": "John",
+    "surname": "Doe",
+    "email": "john.doe@example.com",
+    "age": 30,
+    "favoriteColor": "blue",
+    "contactPreference": [
+      "by email"
+    ]
+  },
+  {
+    "name": "Jane",
+    "surname": "Smith",
+    "email": "jane.smith@example.com",
+    "age": 25,
+    "favoriteColor": "green",
+    "contactPreference": [
+      "by phone call",
+      "via SMS"
+    ]
+  },
+  {
+    "name": "Michael",
+    "surname": "Johnson",
+    "email": "michael.johnson@example.com",
+    "age": 40,
+    "favoriteColor": "red",
+    "contactPreference": [
+      "by email",
+      "by phone call"
+    ]
+  }
+]
 
 function App() {
-  const [data,setData]=useState([]);
-
-  
-  const getData=()=>{
-    fetch('data.json'
-    ,{
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }
-    }
-    )
-      .then(function(response){
-        console.log(response)
-        return response.json();
-      })
-      .then(function(myJson) {
-      console.log(myJson);
-      setData(myJson)
-      });
-  }
-  useEffect(()=>{
-    getData()
-  },[])
+  const [data,setData]=useState(dataArr);
+console.log('app', data)
+  // const getData=()=>{
+  //   fetch('data.json'
+  //   ,{
+  //     headers : { 
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //      }
+  //   }
+  //   )
+  //     .then(function(response){
+  //       console.log(response)
+  //       return response.json();
+  //     })
+  //     .then(function(myJson) {
+  //     console.log(myJson);
+  //     setData(myJson)
+  //     });
+  // }
+  // useEffect(()=>{
+  //   getData()
+  // },[])
 
 
   return (
@@ -38,8 +70,8 @@ function App() {
      
     </div>
     <Routes>
-    <Route path='/' element={<Table data={data}/>} />
-    <Route path='/form' element={<MyForm/>} />
+    <Route path='/' element={<Table data={data} setData={setData}/>} />
+    <Route path='/form' element={<MyForm data={data} setData={setData}/>} />
     </Routes>
    
     </Router>

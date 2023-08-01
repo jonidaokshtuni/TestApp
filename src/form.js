@@ -5,56 +5,30 @@ import { useForm, Controller } from 'react-hook-form';
 
 const colors = ['red', 'green', 'blue', 'white', 'black'];
 
-const MyForm = () => {
-    const navigate= useNavigate()
-    const {
-        handleSubmit,
-        control,
-        reset,
-        formState: { errors },
-    } = useForm();
+const MyForm = ({ data, setData }) => {
+  console.log('ddd', data)
+  const navigate = useNavigate()
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-    
-    const onSubmit = async (data) => {
-        try {
-          // Fetch the existing data from data.json
-          const response = await fetch('/data.json');
-          console.log('ss0', response)
-          const existingData = await response.json();
-    
-          // Add the new data to the array
-          const newData = [...existingData, data];
 
-          localStorage.setItem('formData', JSON.stringify(newData));
+  const onSubmit = (dataAdd) => {
+    // Add the new data to the array
+    const newData = [...data, dataAdd];
+    console.log('f',dataAdd)
+    console.log(newData)
+    // localStorage.setItem('formData', JSON.stringify(newData));
+    setData(newData)
+    reset();
+    navigate('/')
+  };
 
-          // Reset the form after submission
-        //   setFormData({
-        //     name: '',
-        //     surname: '',
-        //     email: '',
-        //     age: '',
-        //     favoriteColor: '',
-        //     contactPreference: [],
-        //   });
-          const directoryHandle = await window.showDirectoryPicker();
-          const fileHandle = await directoryHandle.getFileHandle('data.json', { create: true });
-          const file = await fileHandle.createWritable();
-          await file.write(JSON.stringify(newData, null, 2));
-          await file.close();
-       
-          // Update the data.json file with the new data
-     
-    
-          // Reset the form after successful submission
-          reset();
-          navigate('/')
-        } catch (error) {
-          console.error('Error saving data:', error);
-        }
-      };
-
-    return (
-       <form onSubmit={handleSubmit(onSubmit)}>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label>Name:</label>
         <Controller
@@ -96,7 +70,7 @@ const MyForm = () => {
           rules={{
             required: 'Age is required',
             min: { value: 0, message: 'Age must be a positive number' },
-            max:{value: 120, message: 'Age must be less than 120'}
+            max: { value: 120, message: 'Age must be less than 120' }
           }}
           render={({ field }) => <input type="number" {...field} />}
         />
@@ -151,7 +125,7 @@ const MyForm = () => {
 
       <button type="submit">Submit</button>
     </form>
-    )
+  )
 }
 
 export default MyForm
