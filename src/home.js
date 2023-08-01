@@ -25,12 +25,13 @@ const Table = ({data, setData}) => {
         <tbody>
           {data.map((d, id) => (
             <tr key={id}>
+             
               <td>{d.name}</td>
               <td>{d.surname}</td>
               <td>{d.email}</td>
               <td>{d.age}</td>
               <td>{d.favoriteColor}</td>
-              <td>{d?.contactPreference}</td>
+              <td>{d?.contactPreference.join(',')}</td>
               <td>
               <button onClick={() => handleDeleteRow(d.id)}>Delete</button>
             </td>

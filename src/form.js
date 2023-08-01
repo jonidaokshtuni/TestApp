@@ -1,7 +1,7 @@
 import React from "react"
 import { useNavigate } from "react-router-dom";
 
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, register } from 'react-hook-form';
 
 const colors = ['red', 'green', 'blue', 'white', 'black'];
 
@@ -15,12 +15,18 @@ const MyForm = ({ data, setData }) => {
     formState: { errors },
   } = useForm();
 
-
+  const options = [
+    { id: 'byEmail', label: 'by email' },
+    { id: 'byPhoneCall', label: 'by phone call' },
+    { id: 'viaSms', label: 'via SMS' },
+  ];
   const onSubmit = (dataAdd) => {
     // Add the new data to the array
+    const trueKeysArray = Object.keys(dataAdd?.options).filter((key) => dataAdd?.options[key] === true);
+    //console.log('vvv',trueKeysArray)
+    // dataAdd.push(trueKeysArray)
+    dataAdd['contactPreference'] = trueKeysArray;
     const newData = [...data, dataAdd];
-    console.log('f',dataAdd)
-    console.log(newData)
     // localStorage.setItem('formData', JSON.stringify(newData));
     setData(newData)
     reset();
@@ -99,7 +105,27 @@ const MyForm = ({ data, setData }) => {
 
       <div>
         <label>Contact preference:</label>
-        <Controller
+        {options.map((option) => (
+        <div key={option.id}>
+          <Controller
+           name={`options[${option.id}]`}
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <label>
+                <input
+                  type="checkbox"
+                  {...field}
+                  value={option.id}
+                  checked={field.value}
+                />
+                {option.label}
+              </label>
+            )}
+          />
+        </div>
+      ))}
+        {/* <Controller
           name="contactPreference"
           control={control}
           rules={{ required: 'Contact preference is required' }}
@@ -119,7 +145,7 @@ const MyForm = ({ data, setData }) => {
               </label>
             </div>
           )}
-        />
+        /> */}
         {errors.contactPreference && <span>{errors.contactPreference.message}</span>}
       </div>
 
