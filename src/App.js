@@ -5,6 +5,7 @@ import Table from "./home";
 
 const dataArr = [
   {
+    "id": "1",
     "name": "John",
     "surname": "Doe",
     "email": "john.doe@example.com",
@@ -15,6 +16,7 @@ const dataArr = [
     ]
   },
   {
+    "id": "2",
     "name": "Jane",
     "surname": "Smith",
     "email": "jane.smith@example.com",
@@ -26,6 +28,7 @@ const dataArr = [
     ]
   },
   {
+    "id": "3",
     "name": "Michael",
     "surname": "Johnson",
     "email": "michael.johnson@example.com",

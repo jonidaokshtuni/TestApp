@@ -5,6 +5,7 @@ const Table = ({data, setData}) => {
     const navigate = useNavigate()
 
     const handleDeleteRow = (id) => {
+      console.log(id)
       setData((prevData) => prevData.filter((item) => item.id !== id));
     };
     return (
@@ -25,7 +26,6 @@ const Table = ({data, setData}) => {
         <tbody>
           {data.map((d, id) => (
             <tr key={id}>
-             
               <td>{d.name}</td>
               <td>{d.surname}</td>
               <td>{d.email}</td>

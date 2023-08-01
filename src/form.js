@@ -1,6 +1,6 @@
 import React from "react"
 import { useNavigate } from "react-router-dom";
-
+import { v4 as uuidv4 } from 'uuid';
 import { useForm, Controller, register } from 'react-hook-form';
 
 const colors = ['red', 'green', 'blue', 'white', 'black'];
@@ -25,7 +25,10 @@ const MyForm = ({ data, setData }) => {
     const trueKeysArray = Object.keys(dataAdd?.options).filter((key) => dataAdd?.options[key] === true);
     //console.log('vvv',trueKeysArray)
     // dataAdd.push(trueKeysArray)
+    const uniqueId = uuidv4()
+    //new Date().getTime();
     dataAdd['contactPreference'] = trueKeysArray;
+    dataAdd['id']= uniqueId
     const newData = [...data, dataAdd];
     // localStorage.setItem('formData', JSON.stringify(newData));
     setData(newData)
