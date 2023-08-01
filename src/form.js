@@ -125,27 +125,6 @@ const MyForm = ({ data, setData }) => {
           />
         </div>
       ))}
-        {/* <Controller
-          name="contactPreference"
-          control={control}
-          rules={{ required: 'Contact preference is required' }}
-          render={({ field }) => (
-            <div>
-              <label>
-                <input type="checkbox" value="email" {...field} />
-                Email
-              </label>
-              <label>
-                <input type="checkbox" value="phoneCall" {...field} />
-                Phone Call
-              </label>
-              <label>
-                <input type="checkbox" value="viaSMS" {...field} />
-                Via SMS
-              </label>
-            </div>
-          )}
-        /> */}
         {errors.contactPreference && <span>{errors.contactPreference.message}</span>}
       </div>
 
