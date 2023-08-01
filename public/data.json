@@ -1,0 +1,74 @@
+[
+  {
+    "name": "John",
+    "surname": "Doe",
+    "email": "john.doe@example.com",
+    "age": 30,
+    "favoriteColor": "blue",
+    "contactPreference": [
+      "by email"
+    ]
+  },
+  {
+    "name": "Jane",
+    "surname": "Smith",
+    "email": "jane.smith@example.com",
+    "age": 25,
+    "favoriteColor": "green",
+    "contactPreference": [
+      "by phone call",
+      "via SMS"
+    ]
+  },
+  {
+    "name": "Michael",
+    "surname": "Johnson",
+    "email": "michael.johnson@example.com",
+    "age": 40,
+    "favoriteColor": "red",
+    "contactPreference": [
+      "by email",
+      "by phone call"
+    ]
+  },
+  {
+    "name": "tt",
+    "surname": "ttt",
+    "email": "t@gmail.com",
+    "age": "22",
+    "favoriteColor": "green",
+    "contactPreference": true
+  },
+  {
+    "name": "tt",
+    "surname": "ttt",
+    "email": "t@gmail.com",
+    "age": "33",
+    "favoriteColor": "green",
+    "contactPreference": true
+  },
+  {
+    "name": "rrr",
+    "surname": "rrr",
+    "email": "aaa@gmail.com",
+    "age": "3",
+    "favoriteColor": "green",
+    "contactPreference": true
+  },
+  {
+    "name": "testtt",
+    "surname": "ttttt",
+    "email": "tet@mail.com",
+    "age": "22",
+    "favoriteColor": "red",
+    "contactPreference": true
+  },
+  {
+    "name": "ttt",
+    "surname": "ttt",
+    "email": "tt@gmail.com",
+    "age": "7",
+    "favoriteColor": "red",
+    "contactPreference": true
+  }
+]
