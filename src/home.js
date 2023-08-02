@@ -3,40 +3,40 @@ import { useNavigate } from "react-router-dom"
 import Modal from "./modal"
 import './home.css';
 
-const Table = ({data, setData}) => {
-    const navigate = useNavigate()
-    const[modalOpen,setModalOpen] = useState(false)
-    const[exportOpen,setExportOpen] = useState(false)
-    const [selectedRow, setSelectedRow] = useState(null);
+const Table = ({ data, setData }) => {
+  const navigate = useNavigate()
+  const [modalOpen, setModalOpen] = useState(false)
+  const [exportOpen, setExportOpen] = useState(false)
+  const [selectedRow, setSelectedRow] = useState(null);
 
 
-    const handleOpenModal = (rowId) => {
-      setModalOpen(true)
-     setSelectedRow(rowId)
-    };
-  
-    const handleCloseModal = () => {
-      setModalOpen(false)
-    };
-  
-    const handleOk = () => {
-      setData(data.filter((row) => row.id !== selectedRow));
+  const handleOpenModal = (rowId) => {
+    setModalOpen(true)
+    setSelectedRow(rowId)
+  };
 
-    };
-    const handleExportClick = () => {
-      setExportOpen(true);
-    };
-   const handleCloseExport= () => {
+  const handleCloseModal = () => {
+    setModalOpen(false)
+  };
+
+  const handleOk = () => {
+    setData(data.filter((row) => row.id !== selectedRow));
+
+  };
+  const handleExportClick = () => {
+    setExportOpen(true);
+  };
+  const handleCloseExport = () => {
     setExportOpen(false);
   };
-   
-    return (
-        <>  
-        <div className="table-buttons-div">
-          <button className="create-button" onClick={()=>{navigate('/form')}}>Create New </button>
-          <button className="export-button" onClick={handleExportClick}>Export</button>
-          </div>
-         <table>
+
+  return (
+    <>
+      <div className="table-buttons-div">
+        <button className="create-button" onClick={() => { navigate('/form') }}>Create New </button>
+        <button className="export-button" onClick={handleExportClick}>Export</button>
+      </div>
+      {data.length > 0 ? <table>
         <thead>
           <tr>
             <th>Name</th>
@@ -58,25 +58,25 @@ const Table = ({data, setData}) => {
               <td>{d.favoriteColor}</td>
               <td>{d?.contactPreference.join(',')}</td>
               <td>
-              <button className="delete-button" onClick={()=>{handleOpenModal(d?.id)}}>Delete</button>
-            </td>
+                <button className="delete-button" onClick={() => { handleOpenModal(d?.id) }}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> : <div className="no-data">No Data</div>}
       {modalOpen && <Modal isOpen={modalOpen} onClose={handleCloseModal} onOk={handleOk} />}
       {exportOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-          <span class="close-button-x" onClick={handleCloseExport}>&times;</span>
+            <span class="close-button-x" onClick={handleCloseExport}>&times;</span>
             <pre>{JSON.stringify(data, null, 2)}</pre>
             <button onClick={handleCloseExport}>Close</button>
           </div>
         </div>
       )}
-      </>
-  
-    )
+    </>
+
+  )
 }
 
 export default Table

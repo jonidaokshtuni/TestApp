@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import { useForm, Controller, register } from 'react-hook-form';
 import "./form.css"
 import { FaArrowLeft } from 'react-icons/fa'
+
 
 const colors = ['red', 'green', 'blue', 'white', 'black'];
 
@@ -15,8 +16,10 @@ const MyForm = ({ data, setData }) => {
     handleSubmit,
     control,
     reset,
+    setValue,
     formState: { errors },
   } = useForm();
+ // console.log('errors',errors.checkboxGroup)
 
   const options = [
     { id: 'byEmail', label: 'by email' },
@@ -24,9 +27,10 @@ const MyForm = ({ data, setData }) => {
     { id: 'viaSms', label: 'via SMS' },
   ];
   const onSubmit = (dataAdd) => {
+    //console.log('data',dataAdd)
     // Add the new data to the array
-    const trueKeysArray = Object.keys(dataAdd?.options).filter((key) => dataAdd?.options[key] === true);
-    //console.log('vvv',trueKeysArray)
+    const trueKeysArray = Object.keys(dataAdd?.checkboxGroup);
+   // console.log('vvv',trueKeysArray)
     const uniqueId = uuidv4()
     dataAdd['contactPreference'] = trueKeysArray;
     dataAdd['id'] = uniqueId
@@ -40,7 +44,9 @@ const MyForm = ({ data, setData }) => {
   const handleGoBack = () => {
     navigate('/')
   };
-
+  const validateAtLeastOneSelected = (value) => {
+    return Object.values(value).some((selected) => selected) || 'Please select at least one checkbox.';
+  };
 
   return (
     <div className="form-container">
@@ -53,7 +59,7 @@ const MyForm = ({ data, setData }) => {
             rules={{ required: 'Name is required' }}
             render={({ field }) => <input {...field} />}
           />
-          {errors.name && <span>{errors.name.message}</span>}
+          {errors.name && <span style={{ color: 'red', margin: "10px" }}>{errors.name.message}</span>}
         </div>
 
         <div className="form-group">
@@ -64,7 +70,7 @@ const MyForm = ({ data, setData }) => {
             rules={{ required: 'Surname is required' }}
             render={({ field }) => <input {...field} />}
           />
-          {errors.surname && <span>{errors.surname.message}</span>}
+          {errors.surname && <span style={{ color: 'red', margin: "10px" }}>{errors.surname.message}</span>}
         </div>
 
         <div className="form-group">
@@ -72,10 +78,15 @@ const MyForm = ({ data, setData }) => {
           <Controller
             name="email"
             control={control}
-            rules={{ required: 'Email is required', pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ }}
+            rules={{
+              required: 'Email is required', pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Invalid email address',
+              },
+            }}
             render={({ field }) => <input {...field} />}
           />
-          {errors.email && <span>{errors.email.message}</span>}
+          {errors.email && <span style={{ color: 'red', margin: "10px" }}>{errors.email.message}</span>}
         </div>
 
         <div className="form-group">
@@ -86,11 +97,11 @@ const MyForm = ({ data, setData }) => {
             rules={{
               required: 'Age is required',
               min: { value: 0, message: 'Age must be a positive number' },
-              max: { value: 120, message: 'Age must be less than 120' }
+              max: { value: 119, message: 'Age must be less than 120' }
             }}
             render={({ field }) => <input type="number" {...field} />}
           />
-          {errors.age && <span>{errors.age.message}</span>}
+          {errors.age && <span style={{ color: 'red', margin: "10px" }}>{errors.age.message}</span>}
         </div>
 
         <div className="form-group">
@@ -110,7 +121,7 @@ const MyForm = ({ data, setData }) => {
               </select>
             )}
           />
-          {errors.favoriteColor && <span>{errors.favoriteColor.message}</span>}
+          {errors.favoriteColor && <span style={{ color: 'red', marginTop: "10px" }}>{errors.favoriteColor.message}</span>}
         </div>
 
         <div className="form-group">
@@ -118,24 +129,29 @@ const MyForm = ({ data, setData }) => {
           {options.map((option) => (
             <div key={option.id}>
               <Controller
-                name={`options[${option.label}]`}
+                name="checkboxGroup"
                 control={control}
                 defaultValue={false}
+                rules={{ validate: validateAtLeastOneSelected }}
                 render={({ field }) => (
                   <label>
                     <input
                       type="checkbox"
                       {...field}
-                      value={option.id}
-                      checked={field.value}
+                      value={option.label}
+                      onChange={(e) => {
+                        const { value, checked } = e.target;
+                        setValue('checkboxGroup', { ...field.value, [value]: checked });
+                      }}
                     />
                     {option.label}
                   </label>
                 )}
               />
+
             </div>
           ))}
-          {errors.contactPreference && <span>{errors.contactPreference.message}</span>}
+          {errors.checkboxGroup && <span style={{ color: 'red', marginTop: "10px" }}>{errors.checkboxGroup.message}</span>}
         </div>
         <div className="submit-div">
           <button className="go-back-button" onClick={handleGoBack}>  <FaArrowLeft className="icon" /> Go Back</button>

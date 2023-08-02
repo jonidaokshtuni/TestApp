@@ -17,8 +17,13 @@ th {
 
 .table-buttons-div{
   text-align: right;
+  margin-top: 20px;
 }
-
+@media screen and (max-width: 768px) {
+  body {
+    display: block;
+  }
+}
 .export-button{
   padding: 10px 20px;
     border: none;
@@ -78,4 +83,8 @@ th {
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
+  }
+
+  .no-data{
+    margin-top: 10px;
   }
