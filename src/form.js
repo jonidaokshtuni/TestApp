@@ -2,6 +2,7 @@ import React from "react"
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import { useForm, Controller, register } from 'react-hook-form';
+import "./form.css"
 
 const colors = ['red', 'green', 'blue', 'white', 'black'];
 
@@ -24,9 +25,7 @@ const MyForm = ({ data, setData }) => {
     // Add the new data to the array
     const trueKeysArray = Object.keys(dataAdd?.options).filter((key) => dataAdd?.options[key] === true);
     //console.log('vvv',trueKeysArray)
-    // dataAdd.push(trueKeysArray)
     const uniqueId = uuidv4()
-    //new Date().getTime();
     dataAdd['contactPreference'] = trueKeysArray;
     dataAdd['id']= uniqueId
     const newData = [...data, dataAdd];
@@ -37,8 +36,9 @@ const MyForm = ({ data, setData }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
+    <div className="form-container">
+    <form id="myForm" onSubmit={handleSubmit(onSubmit)}>
+      <div className="form-group">
         <label>Name:</label>
         <Controller
           name="name"
@@ -49,7 +49,7 @@ const MyForm = ({ data, setData }) => {
         {errors.name && <span>{errors.name.message}</span>}
       </div>
 
-      <div>
+      <div className="form-group">
         <label>Surname:</label>
         <Controller
           name="surname"
@@ -60,7 +60,7 @@ const MyForm = ({ data, setData }) => {
         {errors.surname && <span>{errors.surname.message}</span>}
       </div>
 
-      <div>
+      <div className="form-group">
         <label>Email:</label>
         <Controller
           name="email"
@@ -71,7 +71,7 @@ const MyForm = ({ data, setData }) => {
         {errors.email && <span>{errors.email.message}</span>}
       </div>
 
-      <div>
+      <div className="form-group">
         <label>Age:</label>
         <Controller
           name="age"
@@ -86,7 +86,7 @@ const MyForm = ({ data, setData }) => {
         {errors.age && <span>{errors.age.message}</span>}
       </div>
 
-      <div>
+      <div className="form-group">
         <label>Favorite color:</label>
         <Controller
           name="favoriteColor"
@@ -106,7 +106,7 @@ const MyForm = ({ data, setData }) => {
         {errors.favoriteColor && <span>{errors.favoriteColor.message}</span>}
       </div>
 
-      <div>
+      <div className="form-group">
         <label>Contact preference:</label>
         {options.map((option) => (
         <div key={option.id}>
@@ -130,9 +130,12 @@ const MyForm = ({ data, setData }) => {
       ))}
         {errors.contactPreference && <span>{errors.contactPreference.message}</span>}
       </div>
-
-      <button type="submit">Submit</button>
+<div className="submit-div">
+<button type="submit">Submit</button>
+</div>
+    
     </form>
+    </div>
   )
 }
 
