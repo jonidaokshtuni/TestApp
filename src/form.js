@@ -9,7 +9,6 @@ import { FaArrowLeft } from 'react-icons/fa'
 const colors = ['red', 'green', 'blue', 'white', 'black'];
 
 const MyForm = ({ data, setData }) => {
-  // console.log('ddd', data)
   const navigate = useNavigate()
 
   const {
@@ -19,23 +18,22 @@ const MyForm = ({ data, setData }) => {
     setValue,
     formState: { errors },
   } = useForm();
- // console.log('errors',errors.checkboxGroup)
 
   const options = [
     { id: 'byEmail', label: 'by email' },
     { id: 'byPhoneCall', label: 'by phone call' },
     { id: 'viaSms', label: 'via SMS' },
   ];
+
   const onSubmit = (dataAdd) => {
-    //console.log('data',dataAdd)
     // Add the new data to the array
     const trueKeysArray = Object.keys(dataAdd?.checkboxGroup);
-   // console.log('vvv',trueKeysArray)
+ 
     const uniqueId = uuidv4()
     dataAdd['contactPreference'] = trueKeysArray;
     dataAdd['id'] = uniqueId
     const newData = [...data, dataAdd];
-    // localStorage.setItem('formData', JSON.stringify(newData));
+   
     setData(newData)
     reset();
     navigate('/')
@@ -44,6 +42,8 @@ const MyForm = ({ data, setData }) => {
   const handleGoBack = () => {
     navigate('/')
   };
+
+  //Validate Multiple checkboxes
   const validateAtLeastOneSelected = (value) => {
     return Object.values(value).some((selected) => selected) || 'Please select at least one checkbox.';
   };
