@@ -68,6 +68,7 @@ const Table = ({data, setData}) => {
       {exportOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
+          <span class="close-button-x" onClick={handleCloseExport}>&times;</span>
             <pre>{JSON.stringify(data, null, 2)}</pre>
             <button onClick={handleCloseExport}>Close</button>
           </div>

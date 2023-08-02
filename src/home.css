@@ -63,9 +63,19 @@ th {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    height: 400px;
   }
   
   /* Style the close button (optional) */
   .modal-content button {
     margin-top: 10px;
+  }
+
+  .close-button-x {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
   }
