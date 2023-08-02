@@ -111,7 +111,7 @@ const MyForm = ({ data, setData }) => {
         {options.map((option) => (
         <div key={option.id}>
           <Controller
-           name={`options[${option.id}]`}
+           name={`options[${option.label}]`}
             control={control}
             defaultValue={false}
             render={({ field }) => (
