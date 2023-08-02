@@ -32,8 +32,10 @@ const Table = ({data, setData}) => {
    
     return (
         <>  
-          <button onClick={()=>{navigate('/form')}}>Open form</button>
-          <button onClick={handleExportClick}>Export</button>
+        <div className="table-buttons-div">
+          <button className="create-button" onClick={()=>{navigate('/form')}}>Create New </button>
+          <button className="export-button" onClick={handleExportClick}>Export</button>
+          </div>
          <table>
         <thead>
           <tr>
@@ -43,7 +45,7 @@ const Table = ({data, setData}) => {
             <th>Age</th>
             <th>Favorite color</th>
             <th>Contact preference</th>
-           
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -56,7 +58,7 @@ const Table = ({data, setData}) => {
               <td>{d.favoriteColor}</td>
               <td>{d?.contactPreference.join(',')}</td>
               <td>
-              <button onClick={()=>{handleOpenModal(d?.id)}}>Delete</button>
+              <button className="delete-button" onClick={()=>{handleOpenModal(d?.id)}}>Delete</button>
             </td>
             </tr>
           ))}
